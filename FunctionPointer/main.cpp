@@ -1,6 +1,18 @@
 #include <iostream>
 #include <vector>
 
+template<typename T>
+void PrintAnyThing(T& t)
+{
+	std::cout << t << std::endl;
+}
+
+void Print(std::vector<std::string>& vector, void(*func)(std::string&))
+{
+	for (std::string& value : vector)
+		func(value);
+}
+
 void HelloWorld()
 {
 	std::cout << "Hello World";
