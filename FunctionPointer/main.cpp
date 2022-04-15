@@ -21,7 +21,17 @@ int main()
 {
 	auto function = HelloWorld;
 	//now the type of function is -- void(*)() like void(*function)()
-	void(*newfunction)() = HelloWorld;
-	newfunction();
+
+	std::vector<std::string> strings;
+	strings.push_back("S");
+	strings.push_back("e");
+	strings.push_back("r");
+	strings.push_back("h");
+	strings.push_back("a");
+	strings.push_back("t");
+	
+	auto newfunction = Print;
+	Print(strings, PrintAnyThing); // alternatively Print(strings, newfunction), it does the same thing or -->
+	Print(strings, [](std::string& s) {std::cout << s << std::endl; }); // passing a lambda (throwaway function)
 	std::cin.get();
 }
