@@ -17,13 +17,18 @@ struct Vector4
 		return *(Vector2*)&y;
 	}
 };
+void PrintVector2(const Vector2& vec, void(*func)(float))
+{
+	func(vec.x);
+	func(vec.y);
+}
 template<typename T>
 void PrintAnyThing(T& t)
 {
 	std::cout << t << std::endl;
 }
 
-void Print(std::vector<std::string>& vector, void(*func)(std::string&))
+void PrintSTDvector(std::vector<std::string>& vector, void(*func)(std::string&))
 {
 	for (std::string& value : vector)
 		func(value);
@@ -51,9 +56,12 @@ int main()
 		std::cout << s << std::endl;
 	};
 
-	auto newfunction = Print;
+	auto newfunction = PrintSTDvector;
 	newfunction(strings, PrintAnyThing); // alternatively Print(strings, newfunction), it does the same thing or -->
-	Print(strings, [](std::string& s) {std::cout << s << std::endl; }); // passing a lambda (throwaway function)
-	Print(strings, print);
+	PrintSTDvector(strings, [](std::string& s) {std::cout << s << std::endl; }); // passing a lambda (throwaway function)
+	PrintSTDvector(strings, print);
+
+	Vector4 newVec4{ 2.0f, 3.0f, 4.0f, 5.0f };
+	//Print()
 	std::cin.get();
 }
