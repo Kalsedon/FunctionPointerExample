@@ -7,15 +7,17 @@ struct Vector2
 };
 struct Vector4
 {
-	float x, y, w, z;
-	const Vector2& getVec2A()
+	union 
 	{
-		return *(Vector2*)&x;
-	}
-	const Vector2& getVec2B()
-	{
-		return *(Vector2*)&w;
-	}
+		struct 
+		{
+			float x, y, w, z;
+		};
+		struct // vec1 is sharing same memory with a and b, vec2 ->> w, z
+		{	   // this is an easier method for getting Vector2 type out of Vector4
+			Vector2 vec1, vec2;
+		};
+	};
 };
 void PrintVector2(const Vector2& vec, void(*func)(float))
 {
@@ -62,7 +64,7 @@ int main()
 	PrintSTDvector(strings, print);
 
 	Vector4 newVec4{ 2.0f, 3.0f, 4.0f, 5.0f };
-	PrintVector2(newVec4.getVec2A(), [](float f) { std::cout << f; });
-	PrintVector2(newVec4.getVec2B(), [](float f) { std::cout << f; });
+	PrintVector2(newVec4.vec1, [](float f) { std::cout << f; });
+	PrintVector2(newVec4.vec2, [](float f) { std::cout << f; });
 	std::cin.get();
 }
