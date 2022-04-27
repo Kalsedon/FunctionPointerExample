@@ -14,7 +14,7 @@ struct Vector4
 	}
 	const Vector2& getVec2B()
 	{
-		return *(Vector2*)&y;
+		return *(Vector2*)&w;
 	}
 };
 void PrintVector2(const Vector2& vec, void(*func)(float))
@@ -62,6 +62,7 @@ int main()
 	PrintSTDvector(strings, print);
 
 	Vector4 newVec4{ 2.0f, 3.0f, 4.0f, 5.0f };
-	//Print()
+	PrintVector2(newVec4.getVec2A(), [](float f) { std::cout << f; });
+	PrintVector2(newVec4.getVec2B(), [](float f) { std::cout << f; });
 	std::cin.get();
 }
