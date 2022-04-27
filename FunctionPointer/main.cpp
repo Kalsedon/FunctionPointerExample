@@ -1,6 +1,22 @@
 #include <iostream>
 #include <vector>
 
+struct Vector2
+{
+	float x, y;
+};
+struct Vector4
+{
+	float x, y, w, z;
+	const Vector2& getVec2A()
+	{
+		return *(Vector2*)&x;
+	}
+	const Vector2& getVec2B()
+	{
+		return *(Vector2*)&y;
+	}
+};
 template<typename T>
 void PrintAnyThing(T& t)
 {
